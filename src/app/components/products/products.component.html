@@ -1,0 +1,29 @@
+<div class="products-page"> 
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">
+      <div class="lds-hourglass"></div>
+  </div>
+  <!-- ===== -->
+  <div class="container-fluid" *ngIf="!loading">
+    <div class="mt-4 mr-3 text-right">
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+    <div class="products mt-3">
+      <owl-carousel-o [options]="sliderOptions">
+          <ng-container *ngFor="let slide of slidesStore">
+            <ng-template carouselSlide [id]="slide.id">
+              <div class="product card">
+                <div class="card-body">
+                  <img [src]="slide.product_images[0].image_name" [title]="slide.title">
+                  <p class="name">{{(slide.name.length>60)? (slide.name | slice:0:60)+'..':(slide.name)}}</p>
+                  <p class="vendor">{{slide.vendor_name}}</p>
+                  <bar-rating [(rate)]="slide.rate" [max]="5.00" [readOnly]="true"></bar-rating>
+                  <p class="price mt-3">{{slide.price}} <small class="currency">EGP</small></p>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="login-page">
+  <div class="container">
+      <h3 class="text-center my-3">Please Login</h3>
+      <!-- Alert Success -->
+      <div *ngIf="alertSuccess" class="form alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Thanks!</strong> You will be transferred to products page in second
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true" (click)="alertSuccess=false">&times;</span>
+        </button>
+      </div>
+      <!-- ======== -->
+      <!-- Alert Failed -->
+        <div *ngIf="alertFailed" class="form alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Please!</strong> Check email and mobile
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true" (click)="alertFailed=false">&times;</span>
+          </button>
+        </div>
+        <!-- ======== -->
+        <!-- Alert Failed -->
+        <div *ngIf="alertSignUp" class="form alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Please!</strong> Sign up first
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true" (click)="alertSignUp=false">&times;</span>
+          </button>
+        </div>
+        <!-- ======== -->
+      <form class="form card" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="card-body">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label>Mobile</label>
+              <input (keypress)="onlyNumber($event)" type="text" formControlName="mobile" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" />
+              <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+                  <div *ngIf="f.mobile.errors.pattern">Only type numbers</div>
+                  <div *ngIf="f.mobile.errors.minlength">less than 8 numbers</div>
+              </div>
+            </div>
+            <div class="form-group d-flex">
+                <button class="btn btn-primary mr-2" type="submit">Login</button>
+                <button class="btn btn-success" type="button" (click)="resetForm()">Reset</button>
+                <a class="ml-auto align-self-center" routerLink="/signup">Sign up here</a>
+            </div>
+          </div>
+      </form>
+  </div>
+</div>
